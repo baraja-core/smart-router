@@ -93,6 +93,8 @@ final class ConstructUrlRequest
 	/**
 	 * Produce SEO-friendly URL by DG article.
 	 *
+	 * @param mixed[] $parameters
+	 * @return string|null
 	 * @see https://phpfashion.com/jsou-tyto-url-stejne
 	 */
 	public function createUrl(?string $scheme, string $domain, ?string $path, ?array $parameters = []): ?string

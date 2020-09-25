@@ -59,7 +59,7 @@ final class MatchRequest
 
 
 	/**
-	 * @return string[]|null
+	 * @return mixed[]|null
 	 */
 	public function match(): ?array
 	{

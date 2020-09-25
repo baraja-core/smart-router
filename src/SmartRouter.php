@@ -44,6 +44,8 @@ final class SmartRouter implements Router
 
 	/**
 	 * Maps HTTP request to a Request object.
+	 *
+	 * @return mixed[]|null
 	 */
 	public function match(IRequest $httpRequest): ?array
 	{
@@ -153,15 +155,15 @@ final class SmartRouter implements Router
 
 	/**
 	 * @param UrlScript $url
-	 * @param string[] $match
-	 * @return string[]
+	 * @param mixed[] $match
+	 * @return mixed[]
 	 */
 	private function returnRequest(UrlScript $url, array $match): array
 	{
 		unset($match['environment']);
 
 		if (($locale = $match['locale'] ?? null) !== null) {
-			$this->localization->setLocale($locale);
+			$this->localization->setLocale((string) $locale);
 		}
 		foreach ($this->afterMatchEvents as $afterMatchEvent) {
 			$afterMatchEvent->matched($url, $match);
