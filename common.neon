@@ -1,0 +1,2 @@
+extensions:
+	smartRouter: Baraja\SmartRouter\SmartRouterExtension
