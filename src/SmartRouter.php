@@ -124,29 +124,35 @@ final class SmartRouter implements Router
 	}
 
 
-	/**
-	 * @internal
-	 */
-	public function setRewriter(Rewriter $rewriter, bool $checkOverwrite = true): void
-	{
-		if ($checkOverwrite === true && $this->rewriter !== null) {
-			throw new \LogicException('Router Rewriter already exist (service "' . \get_class($this->rewriter) . '"). Did you install multiple implementations?');
-		}
-
-		$this->rewriter = $rewriter;
-	}
-
-
 	public function addAfterMatchEvent(AfterMatchEvent $afterMatchEvent): void
 	{
 		$this->afterMatchEvents[] = $afterMatchEvent;
 	}
 
 
-	private function getRewriter(): Rewriter
+	public function clearCache(string $section = 'all'): void
+	{
+		if (\in_array($section, $possibilities = ['all', 'router', 'rewriter', 'events'], true) === false) {
+			throw new \InvalidArgumentException('Section "' . $section . '" is invalid. Did you mean "' . implode('", "', $possibilities) . '"?');
+		}
+		if ($section === 'router' || $section === 'all') {
+			$this->cache->clean([Cache::ALL => true]);
+		}
+		if ($this->rewriter !== null && ($section === 'rewriter' || $section === 'all')) {
+			$this->rewriter->clearCache();
+		}
+		if ($section === 'events' || $section === 'all') {
+			foreach ($this->afterMatchEvents as $event) {
+				$event->cleanCache();
+			}
+		}
+	}
+
+
+	public function getRewriter(): Rewriter
 	{
 		if ($this->rewriter === null) {
-			throw new \RuntimeException('Router Rewriter does not exist. Did you install baraja-core/doctrine-router?');
+			throw new \RuntimeException('Router Rewriter does not exist. Did you install baraja-core/doctrine-router for example?');
 		}
 
 		return $this->rewriter;
@@ -154,19 +160,30 @@ final class SmartRouter implements Router
 
 
 	/**
-	 * @param UrlScript $url
+	 * @internal
+	 */
+	public function setRewriter(Rewriter $rewriter, bool $checkOverwrite = true): void
+	{
+		if ($checkOverwrite === true && $this->rewriter !== null && $this->rewriter !== $rewriter) {
+			throw new \LogicException('Router Rewriter already exist (service "' . \get_class($this->rewriter) . '"). Did you install multiple implementations?');
+		}
+
+		$this->rewriter = $rewriter;
+	}
+
+
+	/**
 	 * @param mixed[] $match
 	 * @return mixed[]
 	 */
 	private function returnRequest(UrlScript $url, array $match): array
 	{
 		unset($match['environment']);
-
 		if (($locale = $match['locale'] ?? null) !== null) {
 			$this->localization->setLocale((string) $locale);
 		}
-		foreach ($this->afterMatchEvents as $afterMatchEvent) {
-			$afterMatchEvent->matched($url, $match);
+		foreach ($this->afterMatchEvents as $event) {
+			$event->matched($url, $match);
 		}
 
 		return $match;
