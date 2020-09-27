@@ -88,4 +88,16 @@ final class StaticRewriter implements Rewriter
 	{
 		self::$config = $config;
 	}
+
+
+	public function clearCache(): void
+	{
+		// ignore
+	}
+
+
+	public function getMetaData(string $path, string $locale): MetaData
+	{
+		return new MetaData;
+	}
 }

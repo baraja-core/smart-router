@@ -15,4 +15,6 @@ interface AfterMatchEvent
 	 * @param mixed[] $match
 	 */
 	public function matched(UrlScript $url, array $match): void;
+
+	public function cleanCache(): void;
 }

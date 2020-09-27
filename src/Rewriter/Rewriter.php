@@ -25,4 +25,8 @@ interface Rewriter
 	 * @return RewriterParametersMatch|null
 	 */
 	public function rewriteByParameters(array $parameters): ?RewriterParametersMatch;
+
+	public function clearCache(): void;
+
+	public function getMetaData(string $path, string $locale): MetaData;
 }
