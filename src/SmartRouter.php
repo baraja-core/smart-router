@@ -54,6 +54,10 @@ final class SmartRouter implements Router
 		}
 
 		$url = $httpRequest->getUrl();
+		if ($url->getPathInfo() === 'nette.micro' && $url->getQueryParameter('callback') !== null) {
+			throw new \RuntimeException('Critical security warning: This request is possible bug CVE-2020-15227. It must be terminated.');
+		}
+
 		$cacheKey = 'm:' . $url->getAbsoluteUrl();
 		$this->checkDomainFormat(str_replace('www.', '', $url->getDomain()));
 
