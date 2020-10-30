@@ -11,15 +11,12 @@ use Tracy\IBarPanel;
 
 final class RouterPanel implements IBarPanel
 {
+	private IRequest $httpRequest;
 
-	/** @var MatchRequest|null */
-	private $matchRequest;
+	private ?MatchRequest $matchRequest = null;
 
 	/** @var string[] */
-	private $errorMessages = [];
-
-	/** @var IRequest */
-	private $httpRequest;
+	private array $errorMessages = [];
 
 
 	public function __construct(IRequest $httpRequest)

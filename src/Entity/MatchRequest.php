@@ -16,33 +16,27 @@ final class MatchRequest
 
 	private const PART_DOMAIN = 'partDomain';
 
-	/** @var Rewriter */
-	private $rewriter;
+	private Rewriter $rewriter;
 
-	/** @var LocalizationStatus */
-	private $status;
+	private LocalizationStatus $status;
 
-	/** @var string */
-	private $domain;
+	private string $domain;
 
-	/** @var string */
-	private $path;
+	private string $path;
 
 	/** @var mixed[] */
-	private $parameters;
+	private array $parameters;
 
-	/** @var string|null */
-	private $environment;
+	private ?string $environment;
+
+	private RouterPanel $panel;
 
 	/** @var string[]|null[] */
-	private $locale = [
+	private array $locale = [
 		self::PART_URL_PARAMETER => null,
 		self::PART_PATH => null,
 		self::PART_DOMAIN => null,
 	];
-
-	/** @var RouterPanel */
-	private $panel;
 
 
 	public function __construct(UrlScript $url, Rewriter $rewriter, LocalizationStatus $status, RouterPanel $panel)

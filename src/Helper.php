@@ -7,6 +7,7 @@ namespace Baraja\SmartRouter;
 
 final class Helper
 {
+
 	/** @throws \Error */
 	public function __construct()
 	{

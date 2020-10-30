@@ -15,14 +15,12 @@ interface Rewriter
 	 *    'locale' => 'en',
 	 * ] + other parameters
 	 *
-	 * @param string $path
 	 * @return string[]|null
 	 */
 	public function rewriteByPath(string $path): ?array;
 
 	/**
 	 * @param string[] $parameters
-	 * @return RewriterParametersMatch|null
 	 */
 	public function rewriteByParameters(array $parameters): ?RewriterParametersMatch;
 

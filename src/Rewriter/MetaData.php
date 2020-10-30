@@ -11,29 +11,21 @@ final class MetaData
 	/** @var string|int|null */
 	private $id;
 
-	/** @var string|null */
-	private $metaTitle;
+	private ?string $metaTitle = null;
 
-	/** @var string|null */
-	private $metaDescription;
+	private ?string $metaDescription = null;
 
-	/** @var string|null */
-	private $ogTitle;
+	private ?string $ogTitle = null;
 
-	/** @var string|null */
-	private $ogDescription;
+	private ?string $ogDescription = null;
 
-	/** @var bool */
-	private $noIndex = false;
+	private bool $noIndex = false;
 
-	/** @var bool */
-	private $noFollow = false;
+	private bool $noFollow = false;
 
-	/** @var int */
-	private $priority = 1;
+	private int $priority = 1;
 
-	/** @var string|null */
-	private $seoScore;
+	private ?string $seoScore = null;
 
 
 	/**
@@ -47,7 +39,6 @@ final class MetaData
 
 	/**
 	 * @param string|int|null $id
-	 * @return self
 	 */
 	public function setId($id): self
 	{

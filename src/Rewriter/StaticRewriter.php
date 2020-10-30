@@ -8,7 +8,7 @@ namespace Baraja\SmartRouter;
 final class StaticRewriter implements Rewriter
 {
 	/** @var string[][] */
-	private static $config = [
+	private static array $config = [
 		'' => [
 			'presenter' => 'Front:Homepage',
 			'action' => 'default',

@@ -1,6 +1,6 @@
 {
 	"name": "baraja-core/smart-router",
-	"homepage": "https://gitlab.com/baraja-core/smart-router",
+	"homepage": "https://github.com/baraja-core/smart-router",
 	"authors": [
 		{
 			"name": "Jan Barášek",
@@ -8,7 +8,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1.0",
+		"php": ">=7.4.0",
 		"nette/application": "^3.0",
 		"nette/http": "^3.0",
 		"nette/caching": "^3.0",

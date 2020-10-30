@@ -18,20 +18,16 @@ final class SmartRouter implements Router
 {
 	private const CACHE_EXPIRATION = '30 minutes';
 
-	/** @var Rewriter|null */
-	private $rewriter;
+	private ?Rewriter $rewriter = null;
 
-	/** @var Localization */
-	private $localization;
+	private Localization $localization;
 
-	/** @var Cache */
-	private $cache;
+	private Cache $cache;
+
+	private RouterPanel $panel;
 
 	/** @var AfterMatchEvent[] */
-	private $afterMatchEvents = [];
-
-	/** @var RouterPanel */
-	private $panel;
+	private array $afterMatchEvents = [];
 
 
 	public function __construct(IStorage $storage, Localization $localization, IRequest $request)

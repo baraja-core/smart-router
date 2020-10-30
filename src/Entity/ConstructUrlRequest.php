@@ -13,47 +13,33 @@ use Tracy\ILogger;
 
 final class ConstructUrlRequest
 {
+	private Rewriter $rewriter;
 
-	/** @var Rewriter */
-	private $rewriter;
-
-	/** @var LocalizationStatus */
-	private $status;
+	private LocalizationStatus $status;
 
 	/** @var string[] */
-	private $params;
+	private array $params;
 
-	/** @var Url */
-	private $url;
+	private Url $url;
 
-	/** @var string */
-	private $route;
+	private string $route;
 
-	/** @var string|null */
-	private $environment;
+	private ?string $environment;
 
 	/**
 	 * For local environment only. For example in case of local address is:
-	 *
 	 * http://localhost/baraja/project/www/product
-	 *
 	 * Value will be: "/baraja/project/www"
-	 *
-	 * @var string|null
 	 */
-	private $scriptPath;
+	private ?string $scriptPath;
 
-	/** @var string|null */
-	private $locale;
+	private ?string $locale;
 
-	/** @var bool */
-	private $needLocaleParameter = false;
+	private bool $needLocaleParameter = false;
 
-	/** @var bool */
-	private $lazy = false;
+	private bool $lazy = false;
 
-	/** @var RouterPanel */
-	private $panel;
+	private RouterPanel $panel;
 
 
 	/**

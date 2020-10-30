@@ -7,14 +7,12 @@ namespace Baraja\SmartRouter;
 
 final class RewriterParametersMatch
 {
-	/** @var string */
-	private $slug;
+	private string $slug;
 
-	/** @var string|null */
-	private $locale;
+	private ?string $locale;
 
 	/** @var string[] */
-	private $parameters;
+	private array $parameters;
 
 
 	/**
