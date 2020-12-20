@@ -39,7 +39,6 @@ final class StaticRewriter implements Rewriter
 
 	/**
 	 * @param string[] $parameters
-	 * @return RewriterParametersMatch|null
 	 */
 	public function rewriteByParameters(array $parameters): ?RewriterParametersMatch
 	{
@@ -76,7 +75,7 @@ final class StaticRewriter implements Rewriter
 		}
 
 		return $candidateScore > 0
-			? new RewriterParametersMatch($best['slug'], $best['locale'], $best['params'])
+			? new RewriterParametersMatch((string) $best['slug'], $best['locale'], $best['params'])
 			: null;
 	}
 

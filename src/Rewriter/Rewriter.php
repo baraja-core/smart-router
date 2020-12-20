@@ -20,7 +20,7 @@ interface Rewriter
 	public function rewriteByPath(string $path): ?array;
 
 	/**
-	 * @param string[] $parameters
+	 * @param string[]|null[] $parameters
 	 */
 	public function rewriteByParameters(array $parameters): ?RewriterParametersMatch;
 

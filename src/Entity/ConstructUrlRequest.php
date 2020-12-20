@@ -80,7 +80,6 @@ final class ConstructUrlRequest
 	 * Produce SEO-friendly URL by DG article.
 	 *
 	 * @param mixed[] $parameters
-	 * @return string|null
 	 * @see https://phpfashion.com/jsou-tyto-url-stejne
 	 */
 	public function createUrl(?string $scheme, string $domain, ?string $path, ?array $parameters = []): ?string
@@ -88,7 +87,7 @@ final class ConstructUrlRequest
 		if (($scheme = $scheme ?? 'http') && $scheme !== 'http' && $scheme !== 'https') {
 			return null;
 		}
-		if (($path[0] ?? '') === '#') {
+		if ($path !== null && ($path[0] ?? '') === '#') {
 			$this->panel->addErrorMessage(ltrim($path, '#'));
 
 			return '#invalid-url';

@@ -110,7 +110,6 @@ final class RouterPanel implements IBarPanel
 
 	/**
 	 * @param mixed[] $data
-	 * @return string
 	 */
 	private function renderHttpData(array $data): string
 	{

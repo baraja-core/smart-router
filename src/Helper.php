@@ -99,7 +99,7 @@ final class Helper
 			$start += $lengthProcess($s); // unifies iconv_substr behavior with mb_substr
 		}
 
-		return iconv_substr($s, $start, $length, 'UTF-8');
+		return (string) iconv_substr($s, $start, $length, 'UTF-8');
 	}
 
 

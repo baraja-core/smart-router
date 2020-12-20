@@ -91,8 +91,6 @@ final class SmartRouter implements Router
 	 * Constructs absolute URL from Request object.
 	 *
 	 * @param mixed[] $params
-	 * @param UrlScript $refUrl
-	 * @return string|null
 	 */
 	public function constructUrl(array $params, UrlScript $refUrl): ?string
 	{
