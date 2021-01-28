@@ -72,7 +72,7 @@ final class ConstructUrlRequest
 		unset($params['presenter'], $params['action']);
 
 		$this->params = $params;
-		$this->url = new Url($this->environment === 'localhost' ? 'http://localhost/' . $this->scriptPath : Helper::getBaseUrl());
+		$this->url = new Url($this->environment === 'localhost' ? 'http://localhost/' . $this->scriptPath : \Baraja\Url\Url::get()->getBaseUrl());
 	}
 
 

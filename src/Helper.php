@@ -47,42 +47,6 @@ final class Helper
 	}
 
 
-	public static function getBaseUrl(): ?string
-	{
-		static $return;
-
-		if ($return === null) {
-			if (($currentUrl = self::getCurrentUrl()) !== null) {
-				if (preg_match('/^(https?:\/\/.+)\/www\//', $currentUrl, $localUrlParser)) {
-					$return = $localUrlParser[0];
-				} elseif (preg_match('/^(https?:\/\/[^\/]+)/', $currentUrl, $publicUrlParser)) {
-					$return = $publicUrlParser[1];
-				}
-			}
-			if ($return !== null) {
-				$return = rtrim($return, '/');
-			}
-		}
-
-		return $return;
-	}
-
-
-	/**
-	 * Return current absolute URL.
-	 * Return null, if current URL does not exist (for example in CLI mode).
-	 */
-	public static function getCurrentUrl(): ?string
-	{
-		if (isset($_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST']) === false) {
-			return null;
-		}
-
-		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
-			. '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	}
-
-
 	private static function substring(string $s, int $start, int $length = null): string
 	{
 		if (function_exists('mb_substr')) {

@@ -12,7 +12,8 @@
 		"nette/application": "^3.0",
 		"nette/http": "^3.0",
 		"nette/caching": "^3.0",
-		"baraja-core/localization": "^1.0"
+		"baraja-core/localization": "^1.0",
+		"baraja-core/url": "^1.0"
 	},
 	"require-dev": {
 		"tracy/tracy": "^2.7",
