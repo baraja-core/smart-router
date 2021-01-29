@@ -64,14 +64,16 @@ final class SmartRouter implements Router
 
 		// 2. Match current request by inner logic
 		if (($match = (new MatchRequest($url, $this->getRewriter(), $this->localization->getStatus(), $this->panel))->match()) !== null) {
-			$match['locale'] = $match['locale'] ?? $this->localization->getDefaultLocale();
+			$match['locale'] ??= $this->localization->getDefaultLocale();
 			if (\in_array($match['locale'], $this->localization->getAvailableLocales(), true) === false) {
 				$match['locale'] = $this->localization->getDefaultLocale();
 			}
 		}
 
 		// 3. Save matched data to effective key-value cache
-		$this->cache->save($cacheKey, $match ?? '#NO-ROUTE#',
+		$this->cache->save(
+			$cacheKey,
+			$match ?? '#NO-ROUTE#',
 			(static function (?array $match): array {
 				$return = [Cache::EXPIRE => self::CACHE_EXPIRATION];
 
@@ -80,7 +82,7 @@ final class SmartRouter implements Router
 				}
 
 				return $return;
-			})($match)
+			})($match),
 		);
 
 		return $match === null ? null : $this->returnRequest($url, $match);
@@ -98,8 +100,8 @@ final class SmartRouter implements Router
 			return null;
 		}
 
-		$params['locale'] = $params['locale'] ?? $this->localization->getLocale();
-		$params['environment'] = $params['environment'] ?? $this->getEnvironment(str_replace('www.', '', $refUrl->getDomain(4)));
+		$params['locale'] ??= $this->localization->getLocale();
+		$params['environment'] ??= $this->getEnvironment(str_replace('www.', '', $refUrl->getDomain(4)));
 		$cacheKey = 'c:' . json_encode($params);
 
 		// 1. Load current request in cache
@@ -200,7 +202,7 @@ final class SmartRouter implements Router
 		} elseif (strpos($domain, '.') === false) {
 			throw new \RuntimeException(
 				'Current local domain "' . $domain . '" is invalid, because SmartRouter does not support short domain syntax. '
-				. 'Did you mean "' . $domain . '.l" or "localhost"?'
+				. 'Did you mean "' . $domain . '.l" or "localhost"?',
 			);
 		}
 	}

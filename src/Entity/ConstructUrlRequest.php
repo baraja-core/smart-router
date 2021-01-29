@@ -45,8 +45,13 @@ final class ConstructUrlRequest
 	/**
 	 * @param string[] $params
 	 */
-	public function __construct(array $params, Rewriter $rewriter, LocalizationStatus $status, ?string $scriptPath, RouterPanel $panel)
-	{
+	public function __construct(
+		array $params,
+		Rewriter $rewriter,
+		LocalizationStatus $status,
+		?string $scriptPath,
+		RouterPanel $panel
+	) {
 		if (array_key_exists('environment', $params) === true) {
 			$this->environment = $params['environment'] ?? null;
 			unset($params['environment']);
@@ -84,7 +89,7 @@ final class ConstructUrlRequest
 	 */
 	public function createUrl(?string $scheme, string $domain, ?string $path, ?array $parameters = []): ?string
 	{
-		if (($scheme = $scheme ?? 'http') && $scheme !== 'http' && $scheme !== 'https') {
+		if (($scheme ??= 'http') && $scheme !== 'http' && $scheme !== 'https') {
 			return null;
 		}
 		if ($path !== null && ($path[0] ?? '') === '#') {
@@ -99,7 +104,7 @@ final class ConstructUrlRequest
 
 			$path = Strings::webalize($path, '-./');
 		}
-		if (($parameters = $parameters ?? []) !== []) {
+		if (($parameters ??= []) !== []) {
 			ksort($parameters, SORT_STRING);
 			$params = str_replace(['%5B', '%5D'], ['[', ']'], http_build_query($parameters));
 		} else {
@@ -166,11 +171,7 @@ final class ConstructUrlRequest
 
 		// 1. In case of lazy link
 		if ($this->lazy === true) {
-			$formatPresenter = static function (string $haystack): string {
-				return (string) preg_replace_callback('/([a-z])([A-Z])/', function (array $match): string {
-					return mb_strtolower($match[1] . '-' . $match[2], 'UTF-8');
-				}, $haystack);
-			};
+			$formatPresenter = static fn (string $haystack): string => (string) preg_replace_callback('/([a-z])([A-Z])/', fn (array $match): string => mb_strtolower($match[1] . '-' . $match[2], 'UTF-8'), $haystack);
 
 			$finalPresenter = $formatPresenter(Helper::firstLower($presenter));
 			$finalAction = $formatPresenter(Helper::firstLower($action));
@@ -208,7 +209,10 @@ final class ConstructUrlRequest
 
 			$this->needLocaleParameter = false;
 			foreach ($rewrite->getParameters() as $usedParameterKey => $usedParameterValue) {
-				if (isset($this->params[$usedParameterKey]) && $this->params[$usedParameterKey] === $usedParameterValue) {
+				if (
+					isset($this->params[$usedParameterKey])
+					&& $this->params[$usedParameterKey] === $usedParameterValue
+				) {
 					unset($this->params[$usedParameterKey]);
 				}
 			}
@@ -243,7 +247,9 @@ final class ConstructUrlRequest
 	private function createAdminRegularPath(string $presenter, string $action): string
 	{
 		if ($presenter === 'Homepage') {
-			return $action === 'default' ? 'admin' : 'admin/homepage/' . Helper::formatPresenterNameToUri($action);
+			return $action === 'default'
+				? 'admin'
+				: 'admin/homepage/' . Helper::formatPresenterNameToUri($action);
 		}
 
 		return 'admin'

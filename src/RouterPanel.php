@@ -84,7 +84,7 @@ final class RouterPanel implements IBarPanel
 			. str_replace(
 				['&amp;', '?'],
 				['<wbr>&amp;', '<wbr>?'],
-				htmlspecialchars($this->httpRequest->getUrl()->getRelativeUrl(), ENT_IGNORE, 'UTF-8')
+				htmlspecialchars($this->httpRequest->getUrl()->getRelativeUrl(), ENT_IGNORE, 'UTF-8'),
 			)
 			. '</span></code></p>';
 

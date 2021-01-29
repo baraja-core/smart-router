@@ -74,7 +74,9 @@ final class MatchRequest
 			$return = [];
 			foreach ($this->parameters as $parameterKey => $parameterValue) {
 				if ($parameterValue !== null) {
-					$return[$parameterKey] = is_scalar($parameterValue) ? (string) $parameterValue : $parameterValue;
+					$return[$parameterKey] = is_scalar($parameterValue)
+						? (string) $parameterValue
+						: $parameterValue;
 				}
 			}
 

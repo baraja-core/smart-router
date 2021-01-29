@@ -7,11 +7,10 @@ namespace Baraja\SmartRouter;
 
 final class Helper
 {
-
 	/** @throws \Error */
 	public function __construct()
 	{
-		throw new \Error('Class ' . get_class($this) . ' is static and cannot be instantiated.');
+		throw new \Error('Class ' . static::class . ' is static and cannot be instantiated.');
 	}
 
 
@@ -41,9 +40,7 @@ final class Helper
 
 	public static function formatPresenterNameToUri(string $name): string
 	{
-		return trim((string) preg_replace_callback('/([A-Z])/', static function (array $match): string {
-			return '-' . mb_strtolower($match[1], 'UTF-8');
-		}, $name), '-');
+		return trim((string) preg_replace_callback('/([A-Z])/', static fn (array $match): string => '-' . mb_strtolower($match[1], 'UTF-8'), $name), '-');
 	}
 
 
@@ -53,9 +50,9 @@ final class Helper
 			return mb_substr($s, $start, $length, 'UTF-8'); // MB is much faster
 		}
 
-		$lengthProcess = static function (string $s): int {
-			return function_exists('mb_strlen') ? mb_strlen($s, 'UTF-8') : strlen(utf8_decode($s));
-		};
+		$lengthProcess = static fn (string $s): int => function_exists('mb_strlen')
+				? mb_strlen($s, 'UTF-8')
+				: strlen(utf8_decode($s));
 
 		if ($length === null) {
 			$length = $lengthProcess($s);
@@ -74,8 +71,6 @@ final class Helper
 	 */
 	private static function formatPresenter(string $haystack): string
 	{
-		return (string) preg_replace_callback('/-([a-z])/', static function (array $match): string {
-			return mb_strtoupper($match[1], 'UTF-8');
-		}, $haystack);
+		return (string) preg_replace_callback('/-([a-z])/', static fn (array $match): string => mb_strtoupper($match[1], 'UTF-8'), $haystack);
 	}
 }
