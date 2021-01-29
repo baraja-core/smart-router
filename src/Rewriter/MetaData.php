@@ -7,6 +7,7 @@ namespace Baraja\SmartRouter;
 
 final class MetaData
 {
+	private const MAX_PRIORITY = 1_024;
 
 	/** @var string|int|null */
 	private $id;
@@ -143,8 +144,8 @@ final class MetaData
 		if ($priority < 0) {
 			$priority = 1;
 		}
-		if ($priority > 1024) {
-			$priority = 1024;
+		if ($priority > self::MAX_PRIORITY) {
+			$priority = self::MAX_PRIORITY;
 		}
 
 		$this->priority = $priority;
