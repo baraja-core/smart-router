@@ -40,7 +40,7 @@ final class Helper
 
 	public static function formatPresenterNameToUri(string $name): string
 	{
-		return trim((string) preg_replace_callback('/([A-Z])/', static fn (array $match): string => '-' . mb_strtolower($match[1], 'UTF-8'), $name), '-');
+		return trim((string) preg_replace_callback('/([A-Z])/', static fn(array $match): string => '-' . mb_strtolower($match[1], 'UTF-8'), $name), '-');
 	}
 
 
@@ -50,7 +50,7 @@ final class Helper
 			return mb_substr($s, $start, $length, 'UTF-8'); // MB is much faster
 		}
 
-		$lengthProcess = static fn (string $s): int => function_exists('mb_strlen')
+		$lengthProcess = static fn(string $s): int => function_exists('mb_strlen')
 				? mb_strlen($s, 'UTF-8')
 				: strlen(utf8_decode($s));
 
@@ -71,6 +71,6 @@ final class Helper
 	 */
 	private static function formatPresenter(string $haystack): string
 	{
-		return (string) preg_replace_callback('/-([a-z])/', static fn (array $match): string => mb_strtoupper($match[1], 'UTF-8'), $haystack);
+		return (string) preg_replace_callback('/-([a-z])/', static fn(array $match): string => mb_strtoupper($match[1], 'UTF-8'), $haystack);
 	}
 }

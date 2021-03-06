@@ -171,7 +171,7 @@ final class ConstructUrlRequest
 
 		// 1. In case of lazy link
 		if ($this->lazy === true) {
-			$formatPresenter = static fn (string $haystack): string => (string) preg_replace_callback('/([a-z])([A-Z])/', fn (array $match): string => mb_strtolower($match[1] . '-' . $match[2], 'UTF-8'), $haystack);
+			$formatPresenter = static fn(string $haystack): string => (string) preg_replace_callback('/([a-z])([A-Z])/', fn(array $match): string => mb_strtolower($match[1] . '-' . $match[2], 'UTF-8'), $haystack);
 
 			$finalPresenter = $formatPresenter(Helper::firstLower($presenter));
 			$finalAction = $formatPresenter(Helper::firstLower($action));
