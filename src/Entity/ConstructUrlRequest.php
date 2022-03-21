@@ -50,7 +50,7 @@ final class ConstructUrlRequest
 		Rewriter $rewriter,
 		LocalizationStatus $status,
 		?string $scriptPath,
-		RouterPanel $panel
+		RouterPanel $panel,
 	) {
 		if (array_key_exists('environment', $params) === true) {
 			$this->environment = $params['environment'] ?? null;
@@ -98,7 +98,7 @@ final class ConstructUrlRequest
 			return '#invalid-url';
 		}
 		if (($path = trim($path ?? '', '/')) !== '') {
-			if (strpos($path, '?') !== false) {
+			if (str_contains($path, '?')) {
 				$path = explode('?', $path)[0] ?? '';
 			}
 

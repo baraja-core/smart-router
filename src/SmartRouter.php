@@ -199,7 +199,7 @@ final class SmartRouter implements Router
 			if ($domainParts[2] === 'loc' || $domainParts[2] === 'local') {
 				throw new \RuntimeException('Current local domain "' . $domain . '" is deprecated. Did you mean "' . $domainParts[1] . '.l" or "localhost"?');
 			}
-		} elseif (strpos($domain, '.') === false) {
+		} elseif (!str_contains($domain, '.')) {
 			throw new \RuntimeException(
 				'Current local domain "' . $domain . '" is invalid, because SmartRouter does not support short domain syntax. '
 				. 'Did you mean "' . $domain . '.l" or "localhost"?',
